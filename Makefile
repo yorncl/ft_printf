@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = srcs/ft_printf.c srcs/tohex.c
+SRCS = srcs/ft_printf.c srcs/ft_handleflag.c srcs/tohex.c
 OBJS = $(SRCS:srcs/%.c=objs/%.o)
 
 NAME = libftprintf.a
