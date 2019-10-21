@@ -1,19 +1,18 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
-HEADERS = headers/ft_printf.h headers/converters.h
-SRCS = srcs/tohex.c
-OBJS = $($(SRCS):srcs/%.c : objs/%.o)
+SRCS = srcs/ft_printf.c srcs/tohex.c
+OBJS = $(SRCS:srcs/%.c=objs/%.o)
 
 NAME = libftprintf.a
 
-objs/%.o : srcs/%.c
+objs/%.o: srcs/%.c
+	$(CC) $(CFLAGS) -c $< -o $@ -I headers
 
 all: $(NAME)
 
 $(NAME) : $(OBJS)
-	echo a
-	ar rcs $(OBJS) libftprintf.a
+	ar rcs $(NAME) $(OBJS)
 
 clean :
 	rm -f $(OBJS)
@@ -27,5 +26,7 @@ bonus : all
 
 .PHONY : all clean fclean re bonus
 
-
 test : bonus
+	$(CC) $(CFLAGS) -fsanitize=address -g3 tests/main.c -I headers $(NAME) -o ./tests/run_tests
+	@echo ===============LAUNCHING TESTS=================
+	./tests/run_tests
