@@ -19,7 +19,7 @@ int ft_printf(const char *s, ...)
         }
         else
         {
-            printf("%c", s[i]);
+            write(1, &s[i],1);
             printed++;
             i++;
         }

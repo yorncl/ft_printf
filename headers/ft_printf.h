@@ -4,6 +4,7 @@
 /* Test and global includes */
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 /* Project headers */
 # include <converters.h>
