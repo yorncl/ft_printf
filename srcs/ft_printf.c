@@ -10,6 +10,7 @@ int ft_printf(const char *s, ...)
         return (0);
     i = 0;
     printed = 0;
+    //On parcourt la strin donnée
     while (s[i])
     {
         if (s[i] == '%' && (l = ft_isflag(s + i)) != 0)
