@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:57:35 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/10/22 17:18:09 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:55:33 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +22,21 @@
 
 int	ft_printf(const char *s, ...)
 {
-	size_t printed;
-	size_t i;
-	size_t l;
+	size_t	printed;
+	size_t	i;
+	size_t	l;
+	va_list	ap;
 
 	if (!s)
 		return (0);
 	i = 0;
 	printed = 0;
+	va_start(ap, s);
 	while (s[i])
-	{
 		if (s[i] == '%' && (l = ft_isflag(s + i)) != 0)
 		{
+			printed += ft_handleflag(s + i + 1);
 			i += l;
-			printed += ft_handleflag(s + i);
 		}
 		else
 		{
@@ -44,7 +44,6 @@ int	ft_printf(const char *s, ...)
 			printed++;
 			i++;
 		}
-	}
+	va_end(ap);
 	return (0);
 }
-

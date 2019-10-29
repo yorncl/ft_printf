@@ -1,6 +1,6 @@
 #include <ft_printf_utils.h>
 
-int	incharset(char* set, char c)
+int	incharset(const char *set, char c)
 {
 	while (*set)
 		if (*set == c)
@@ -15,7 +15,7 @@ int ft_strlen(const char *s)
 	int i;
 
 	i = 0;
-	while (s[i]) 
+	while (s[i])
 		i++;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/10/22 18:21:10 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:54:21 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@
 int	ft_handleflag(const char *str)
 {
 	(void)str;
+	if (*str == '%')
+	{
+		ft_putchar_fd(*str, 1);
+		return (1);
+	}
 	return (0);
 }
-
-
-
-
 
 /*
 ** Check if given flag is valid and returns its length
@@ -53,7 +54,7 @@ int	ft_isflag(const char *s)
 	*/
 	while (*s && incharset(flags, *s++))
 		length++;
-	if (*s && incharset(convs, s))
+	if (*s && incharset(convs, *s))
 		length += 1;
 	return (length);
 }
