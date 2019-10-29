@@ -7,7 +7,9 @@ int main()
     printf(" \"%-5d\" \n", number);
     printf(" %05d \n", number);
     printf(" %10x \n", number);  
-    printf(" %#x \n", number);
-    printf(" %i \n", number);
-    ft_printf("Ma grosse teub ouais");
+    printf(" %#050x \n", number);
+    printf(" %#-50x \n", number);
+    printf("\"-50#u\" \n", number);
+    printf("\"%-50i\" \n", number);
+    ft_printf("Bonsoir");
 }
