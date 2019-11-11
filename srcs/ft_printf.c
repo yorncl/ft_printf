@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:57:35 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/10/29 17:55:33 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/11 14:55:24 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 /*
 ** printf but with more style
 **
-** @param	s  pointer to string
+** @param	s  pointer to formatted string
 ** @param	...  arguments to print
 ** @return	int
 */
 
 int	ft_printf(const char *s, ...)
 {
-	size_t	printed;
-	size_t	i;
-	size_t	l;
-	va_list	ap;
+	size_t		printed;
+	size_t		i;
+	va_list		ap;
+	t_format	format;
 
 	if (!s)
 		return (0);
@@ -33,10 +33,11 @@ int	ft_printf(const char *s, ...)
 	printed = 0;
 	va_start(ap, s);
 	while (s[i])
-		if (s[i] == '%' && (l = ft_isflag(s + i)) != 0)
+		if (s[i] == '%')
 		{
-			printed += ft_handleflag(s + i + 1);
-			i += l;
+			ft_bzero(&format, sizeof(format));
+			i += 1 + ft_parseflag(&format, &ap, s + i + 1);
+			printed += ft_printflag(&format,&ap);
 		}
 		else
 		{
