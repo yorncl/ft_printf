@@ -25,8 +25,18 @@ int main()
     // printf(" %#-50x \n", number);
   	// // printf("\"-50#u\" \n", number);
     // printf("\"%-50i\" \n", number);
-	printf("Bonsoir \"%#######50d\" \n", -10);
-	//printf("Bonsoir % \n");
+	 char *str = "Bonsoir \"%-10X\"\n";
+	 int nb = 666;
+	 int r1 = ft_printf(str, nb);
+	 int r2 = printf(str, nb);
+	 printf("r1 = %d vs r2 = %d\n", r1, r2);
+	
+	// // printf("\n\n\n");
+
+	// str = "Bonsoir \"%--50.5d\"\n";
+	// r1 = ft_printf(str, -150);
+	// r2 = printf(str, -150);
+	// printf("r1 = %d vs r2 = %d\n", r1, r2);
 	// // f(3,1,34);
 }
 

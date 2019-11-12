@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/11 16:11:00 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/11 20:16:51 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,16 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 	/*
 	**	Parse Indicator
 	*/
-	if (incharset(INDICATORS, *s))
+	while (incharset(INDICATORS, *s))
 	{
-
 		if (*s == '0')
-			f->flags += FLAG_ZERO;
-		else if (*s == '-')
-			f->flags += FLAG_MINUS;
+			f->flags |= FLAG_ZERO;
+		if (*s == '-')
+			f->flags |= FLAG_MINUS;
 		len++;
 		s++;
 	}
-	printf("Indicateurs %d\n", f->flags);
+	// printf("Indicateurs %d\n", f->flags);
 	/*
 	**	Parse width
 	*/
@@ -47,12 +46,13 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 		s++;
 		len++;
 	}	
-	printf("Minimal width %d\n", f->width);
+	// printf("Minimal width %d\n", f->width);
 	/*
 	**	Parse precision
 	*/
 	if (*s == '.')
 	{
+		f->flags += FLAG_DOT;
 		if (*(++s) == '*')
 		{
 			f->precision = va_arg(*ap, int);
@@ -68,7 +68,7 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 		s++;
 		len++;
 	}
-	printf("Precision %d\n", f->precision);
+	// printf("Precision %d\n", f->precision);
 	/*
 	**	Parse size (stay null for now)
 	*/
@@ -77,26 +77,34 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 	*/
 	f->type = *s;
 	len++;
-	printf("Type %c\n", f->type);
-	printf("Len %d\n", len);
+	// printf("Type %c\n", f->type);
+	// printf("Len %d\n", len);
+	if ((f->flags & FLAG_ZERO && f->flags & FLAG_MINUS)
+	|| (incharset(INTEGERS, f->type) 
+	&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
+		f->flags -= FLAG_ZERO;
 	return (len);
 }
 
 /*
-** Return the number of read bytes after handling the flag
+** Return the number of read bytes after printing the flag
 **
-** @param	str  pointer to flag in string
+** @param	f  	format parsed
+** @param	ap  arguments struct from stdarg
 ** @return	int
 */
 
 int	ft_printflag(t_format *f, va_list *ap)
 {
-	unsigned int printed;
-
-	printed = 0;
 	if (f->type == 'c')
-		ft_printchar(f, va_arg(*ap, int));
-	if (f->type == 'c')
-		ft_printchar(f, va_arg(*ap, int));
+		return (ft_printchar(f, va_arg(*ap, int)));
+	if (f->type == 'd' || f->type == 'i')
+		return (ft_printint(f, va_arg(*ap, int)));
+	if (f->type == 's')
+		return (ft_printstr(f, va_arg(*ap, char*)));
+	if (f->type == 'x')
+		return (ft_printbase(f, "0123456789abcdef", va_arg(*ap, size_t)));
+	if (f->type == 'X')
+		return (ft_printbase(f, "0123456789ABCDEF", va_arg(*ap, size_t)));
 	return (0);
 }
