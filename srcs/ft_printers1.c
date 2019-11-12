@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/11 20:33:01 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:24:18 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ size_t	ft_printint(t_format *f, int i)
 	if (f->flags & FLAG_DOT && f->precision + isneg > datalen)
 		printed += ft_print_zeroes(f->precision + isneg - datalen);
 	//Print Number
-	ft_putlong_fd(isneg ? -i : i, 1);
+	if (i == -2147483648)
+		write(1, "2147483648",11);
+	else
+		ft_putnbr_fd(isneg ? -i : i, 1);
 	printed += datalen;
 	//Print spaces
 	if (f->flags & FLAG_MINUS)
@@ -59,20 +62,50 @@ size_t	ft_printint(t_format *f, int i)
 
 size_t	ft_printstr(t_format *f, char *str)
 {
-	size_t len;
+	size_t	printed;
+	int		datalen;
 	//Check if there's a precision
+	if (!str)
+		str = "(null)";
+	printed = 0;
 	if (f->flags & FLAG_DOT)
-		len = ft_min(f->precision, ft_strlen(str));
+		datalen = ft_min(f->precision, ft_strlen(str));
 	else
-		len = ft_strlen(str);
-	write(1, str, len);
-	return (len);
+		datalen = ft_strlen(str);
+	//Print spaces
+	if (!(f->flags & FLAG_ZERO) && !(f->flags & FLAG_MINUS))
+		printed += ft_print_spaces(f->width -
+					ft_max(datalen, f->precision));
+	write(1, str, datalen);
+	printed += datalen;
+	//Print spaces
+	if (f->flags & FLAG_MINUS)
+		printed += ft_print_spaces(
+			f->width - datalen);
+	return (printed);
 }
 
-// size_t	ft_printaddr()
-// {
-	
-// }
+size_t	ft_printaddr(t_format *f, size_t n)
+{
+	size_t	printed;
+	int		datalen;
+	char	*base;
+
+	base = "0123456789abcdef";
+	printed = 0;
+	datalen = 2 + ft_leninbase(n, base);
+	//Print spaces
+	if (!(f->flags & FLAG_ZERO) && !(f->flags & FLAG_MINUS))
+		printed += ft_print_spaces(f->width - datalen);
+	//Print address
+	ft_putstr_fd("0x", 1);
+	ft_putunsignedbase_fd(n, base, 16, 1);
+	printed += datalen;
+	//Print spaces
+	if (f->flags & FLAG_MINUS)
+		printed += ft_print_spaces(f->width - datalen);
+	return (printed);
+}
 
 size_t	ft_printbase(t_format *f, char *base, size_t n)
 {
@@ -99,5 +132,4 @@ size_t	ft_printbase(t_format *f, char *base, size_t n)
 		printed += ft_print_spaces(
 			f->width - ft_max(datalen, f->precision));
 	return (printed);
-	return (0);
 }

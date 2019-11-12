@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   toputinlib.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 13:39:00 by mclaudel          #+#    #+#             */
+/*   Updated: 2019/11/12 14:20:32 by mclaudel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <ft_utils.h>
 
-int	incharset(const char *set, char c)
+int		incharset(const char *set, char c)
 {
 	while (*set)
 		if (*set == c)
@@ -10,28 +22,12 @@ int	incharset(const char *set, char c)
 	return (0);
 }
 
-
-//Not really usefull I guess
-void	ft_putlong_fd(long int n, int fd)
+void	ft_putunsigned_fd(size_t n, int fd)
 {
-	if (n == -2147483648)
-	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
-		return ;
-	}
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n *= -1;
-	}
 	if (n / 10 > 0)
 		ft_putnbr_fd(n / 10, fd);
 	ft_putchar_fd('0' + n % 10, fd);
 }
-
-//To Opti
 
 int		ft_putunsignedbase_fd(size_t n, char *base, size_t len, int fd)
 {
@@ -41,7 +37,8 @@ int		ft_putunsignedbase_fd(size_t n, char *base, size_t len, int fd)
 	return (0);
 }
 
-size_t	ft_leninbase(int i, char *base)
+//Need to manage int aswell
+size_t	ft_leninbase(size_t i, char *base)
 {
 	size_t len;
 	size_t order;
@@ -51,4 +48,19 @@ size_t	ft_leninbase(int i, char *base)
 	while (i > 0 && ++len)
 		i /= order;
 	return (len ? len : 1);
+}
+
+int		ft_unsignedlen(size_t n)
+{
+	size_t size;
+
+	size = 0;
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n /= 10;
+		size++;
+	}
+	return (size);
 }

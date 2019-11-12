@@ -24,14 +24,22 @@ size_t	ft_print_before(t_format *f, int datalen);
 size_t	ft_print_after(t_format *f, int datalen);
 size_t ft_print_zeroes(int n);
 size_t ft_print_spaces(int n);
+size_t	ft_print_padding(t_format *f, unsigned int datasize);
 
 /*
 **	ft_printers1.c
 */
-size_t	ft_print_padding(t_format *f, unsigned int datasize);
 size_t	ft_printchar(t_format *f, char c);
 size_t	ft_printint(t_format *f, int i);
 size_t	ft_printstr(t_format *f, char *str);
 size_t	ft_printbase(t_format *f, char *base, size_t n);
+size_t	ft_printaddr(t_format *f, size_t n);
+
+
+/*
+**	ft_printers2.c
+*/
+size_t	ft_printpercent(t_format *f);
+size_t	ft_printunsigned(t_format *f, size_t i);
 
 #endif

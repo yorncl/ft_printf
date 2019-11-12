@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/11 20:16:51 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:33:50 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,13 @@ int	ft_printflag(t_format *f, va_list *ap)
 		return (ft_printint(f, va_arg(*ap, int)));
 	if (f->type == 's')
 		return (ft_printstr(f, va_arg(*ap, char*)));
-	if (f->type == 'x')
-		return (ft_printbase(f, "0123456789abcdef", va_arg(*ap, size_t)));
 	if (f->type == 'X')
 		return (ft_printbase(f, "0123456789ABCDEF", va_arg(*ap, size_t)));
+	if (f->type == 'p')
+		return (ft_printaddr(f, va_arg(*ap, size_t)));
+	if (f->type == '%')
+		return (ft_printpercent(f));
+	if (f->type == 'u')
+		return (ft_printunsigned(f, va_arg(*ap, size_t)));
 	return (0);
 }
