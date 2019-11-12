@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/12 13:33:50 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:29:09 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 		if (*(++s) == '*')
 		{
 			f->precision = va_arg(*ap, int);
+			if (f->precision < 0)
+				f->flags -= FLAG_DOT;
 			s++;
 			len++;
 		}
@@ -80,7 +82,7 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 	// printf("Type %c\n", f->type);
 	// printf("Len %d\n", len);
 	if ((f->flags & FLAG_ZERO && f->flags & FLAG_MINUS)
-	|| (incharset(INTEGERS, f->type) 
+		|| (incharset(INTEGERS, f->type) 
 	&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
 		f->flags -= FLAG_ZERO;
 	return (len);
@@ -102,6 +104,8 @@ int	ft_printflag(t_format *f, va_list *ap)
 		return (ft_printint(f, va_arg(*ap, int)));
 	if (f->type == 's')
 		return (ft_printstr(f, va_arg(*ap, char*)));
+	if (f->type == 'x')
+		return (ft_printbase(f, "0123456789abcdef", va_arg(*ap, size_t)));
 	if (f->type == 'X')
 		return (ft_printbase(f, "0123456789ABCDEF", va_arg(*ap, size_t)));
 	if (f->type == 'p')

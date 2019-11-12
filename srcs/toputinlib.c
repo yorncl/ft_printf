@@ -6,11 +6,12 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:39:00 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/12 14:20:32 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/12 16:35:21 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_utils.h>
+#include <stdio.h>
 
 int		incharset(const char *set, char c)
 {
@@ -29,12 +30,11 @@ void	ft_putunsigned_fd(size_t n, int fd)
 	ft_putchar_fd('0' + n % 10, fd);
 }
 
-int		ft_putunsignedbase_fd(size_t n, char *base, size_t len, int fd)
+void		ft_putunsignedbase_fd(size_t n, char *base, size_t len, int fd)
 {
 	if (n / len > 0)
 		ft_putunsignedbase_fd(n / len, base, len, fd);
 	ft_putchar_fd(base[n % len], fd);
-	return (0);
 }
 
 //Need to manage int aswell

@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/12 15:24:18 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/12 16:56:08 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ size_t	ft_printint(t_format *f, int i)
 	if (f->flags & FLAG_DOT && f->precision + isneg > datalen)
 		printed += ft_print_zeroes(f->precision + isneg - datalen);
 	//Print Number
-	if (i == -2147483648)
-		write(1, "2147483648",11);
-	else
-		ft_putnbr_fd(isneg ? -i : i, 1);
-	printed += datalen;
+	if (!(i == 0 && f->flags & FLAG_DOT && f->precision == 0))
+	{
+		if (i == -2147483648)
+			write(1, "2147483648", 11);
+		else
+			ft_putnbr_fd(isneg ? -i : i, 1);
+		printed += datalen;
+	}
 	//Print spaces
 	if (f->flags & FLAG_MINUS)
 		printed += ft_print_spaces(
@@ -114,7 +117,10 @@ size_t	ft_printbase(t_format *f, char *base, size_t n)
 	int			datalen;
 	//
 	printed = 0;
-	datalen = ft_leninbase(n, base);
+	if (n == 0 && f->flags & FLAG_DOT && f->precision == 0)
+		datalen = 0;
+	else
+		datalen =  ft_leninbase(n, base);
 	//Print spaces
 	if (!(f->flags & FLAG_ZERO) && !(f->flags & FLAG_MINUS))
 		printed += ft_print_spaces(f->width -
@@ -125,8 +131,11 @@ size_t	ft_printbase(t_format *f, char *base, size_t n)
 	if (f->flags & FLAG_DOT && f->precision > datalen)
 		printed += ft_print_zeroes(f->precision - datalen);
 	//Print Number
-	ft_putunsignedbase_fd(n, base, ft_strlen(base), 1);
-	printed += datalen;
+	if (!(n == 0 && f->flags & FLAG_DOT && f->precision == 0))
+	{
+		ft_putunsignedbase_fd(n, base, ft_strlen(base), 1);
+		printed += datalen;
+	}
 	//Print spaces
 	if (f->flags & FLAG_MINUS)
 		printed += ft_print_spaces(
