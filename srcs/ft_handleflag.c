@@ -6,41 +6,16 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 15:49:51 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:51:58 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-/*
-** Parses the flag and returns the numbers of char read
-**
-** @param	str  pointer to flag in string
-** @return	int
-*/
-
-int	ft_parseflag(t_format *f, va_list *ap, const char *s)
+char	*ft_parsewidth(const char *s, int *len, t_format *f, va_list *ap)
 {
-	int len;
 	int tmp;
 
-	len = 0;
-	/*
-	**	Parse Indicator
-	*/
-	while (incharset(INDICATORS, *s))
-	{
-		if (*s == '0')
-			f->flags |= FLAG_ZERO;
-		if (*s == '-')
-			f->flags |= FLAG_MINUS;
-		len++;
-		s++;
-	}
-	// printf("Indicateurs %d\n", f->flags);
-	/*
-	**	Parse width
-	*/
 	if (*s == '*')
 	{
 		tmp = va_arg(*ap, int);
@@ -52,7 +27,7 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 		else
 			f->width = tmp;
 		s++;
-		len++;
+		*len += 1;
 	}
 	else
 	{
@@ -60,14 +35,14 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 		while (ft_isdigit(*s))
 		{
 			s++;
-			len++;
-		}	
+			*len += 1;
+		}
 	}
-	
-	// printf("Minimal width %d\n", f->width);
-	/*
-	**	Parse precision
-	*/
+	return ((char *)s);
+}
+
+char	*ft_parseprecision(const char *s, int *len, t_format *f, va_list *ap)
+{
 	if (*s == '.')
 	{
 		f->flags += FLAG_DOT;
@@ -77,30 +52,47 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 			if (f->precision < 0)
 				f->flags -= FLAG_DOT;
 			s++;
-			len++;
+			*len += 1;
 		}
 		else
 			f->precision = ft_atoi(s);
-		len++;
+		*len += 1;
 	}
 	while (ft_isdigit(*s))
 	{
 		s++;
-		len++;
+		*len += 1;
 	}
-	// printf("Precision %d\n", f->precision);
-	/*
-	**	Parse size (stay null for now)
-	*/
-	/*
-	**	Parse type
-	*/
+	return ((char *)s);
+}
+
+/*
+** Parses the flag and returns the numbers of char read
+**
+** @param	str  pointer to flag in string
+** @return	int
+*/
+
+int		ft_parseflag(t_format *f, va_list *ap, const char *s)
+{
+	int len;
+
+	len = 0;
+	while (incharset(INDICATORS, *s))
+	{
+		if (*s == '0')
+			f->flags |= FLAG_ZERO;
+		if (*s == '-')
+			f->flags |= FLAG_MINUS;
+		len++;
+		s++;
+	}
+	s = ft_parsewidth(s, &len, f, ap);
+	s = ft_parseprecision(s, &len, f, ap);
 	f->type = *s;
 	len++;
-	// printf("Type %c\n", f->type);
-	// printf("Len %d\n", len);
 	if ((f->flags & FLAG_ZERO && f->flags & FLAG_MINUS)
-		|| (incharset(INTEGERS, f->type) 
+		|| (incharset(INTEGERS, f->type)
 	&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
 		f->flags -= FLAG_ZERO;
 	return (incharset(CONVERTERS, f->type) ? len : 0);
@@ -114,7 +106,7 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 ** @return	int
 */
 
-int	ft_printflag(t_format *f, va_list *ap)
+int		ft_printflag(t_format *f, va_list *ap)
 {
 	if (f->type == 'c')
 		return (ft_printchar(f, va_arg(*ap, int)));

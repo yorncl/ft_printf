@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = srcs/ft_handleflag.c srcs/ft_printers1.c srcs/ft_printers2.c srcs/ft_printers_utils.c srcs/ft_printf.c srcs/ft_data_size.c srcs/toputinlib1.c srcs/toputinlib2.c
+SRCS = srcs/ft_handleflag.c srcs/ft_printers1.c srcs/ft_printers2.c srcs/ft_printers_utils.c srcs/ft_printf.c srcs/toputinlib1.c srcs/toputinlib2.c
 SRCS_LIBFT = $(wildcard libft/*.c)
 OBJS = $(SRCS:srcs/%.c=objs/%.o) $(SRCS_LIBFT:libft/%.c=libft/%.o)
 

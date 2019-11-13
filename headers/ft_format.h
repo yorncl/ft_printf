@@ -6,14 +6,14 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:42 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 12:37:15 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:55:07 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_FORMAT_H
-#define FT_FORMAT_H
+# define FT_FORMAT_H
 
-typedef struct		format
+typedef struct		s_format
 {
 	unsigned int	flags;
 	unsigned int	width;
@@ -25,12 +25,9 @@ typedef struct		format
 # define INDICATORS	"0-"
 # define INTEGERS	"iuxXd"
 # define CONVERTERS	"cspdiuxX%"
-/*
-*   Flags to check
-*/
-#define FLAG_MINUS	1
-#define FLAG_ZERO	2
-#define FLAG_DOT	4
-#define FLAG_STAR	8
+# define FLAG_MINUS	1
+# define FLAG_ZERO	2
+# define FLAG_DOT	4
+# define FLAG_STAR	8
 
 #endif

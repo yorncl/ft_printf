@@ -6,12 +6,11 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:16:02 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 16:16:57 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:36:39 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_utils.h>
-
 
 size_t	ft_sizetleninbase(size_t i, char *base)
 {
@@ -25,7 +24,7 @@ size_t	ft_sizetleninbase(size_t i, char *base)
 	return (len ? len : 1);
 }
 
-void		ft_putsizetbase_fd(size_t n, char *base, size_t len, int fd)
+void	ft_putsizetbase_fd(size_t n, char *base, size_t len, int fd)
 {
 	if (n / len > 0)
 		ft_putsizetbase_fd(n / len, base, len, fd);

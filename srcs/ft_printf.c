@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:57:35 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 12:57:14 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:27:57 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ int	ft_printf(const char *s, ...)
 			printed += parsed ? ft_printflag(&format, &ap) : 1;
 		}
 		else
-		{
-			write(1, &s[i], 1);
-			printed++;
-			i++;
-		}
+			printed += write(1, &s[i++], 1);
 	va_end(ap);
 	return (printed);
 }
