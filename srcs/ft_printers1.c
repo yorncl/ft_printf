@@ -6,12 +6,11 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 19:56:19 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 21:41:42 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printers.h>
-#include <stdio.h>
 
 size_t	ft_printchar(t_format *f, char c)
 {
