@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 15:15:06 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:25:52 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ size_t	ft_printstr(t_format *f, char *str)
 size_t	ft_printaddr(t_format *f, unsigned int n)
 {
 	size_t	printed;
-	int		datalen;
+	size_t	datalen;
 	char	*base;
 
 	base = "0123456789abcdef";
