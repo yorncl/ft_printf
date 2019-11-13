@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:39:00 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/12 16:35:21 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:53:43 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void		ft_putunsignedbase_fd(size_t n, char *base, size_t len, int fd)
 }
 
 //Need to manage int aswell
-size_t	ft_leninbase(size_t i, char *base)
+size_t	ft_leninbase(unsigned int i, char *base)
 {
 	size_t len;
-	size_t order;
+	unsigned int order;
 
 	order = ft_strlen(base);
 	len = 0;
@@ -50,7 +50,7 @@ size_t	ft_leninbase(size_t i, char *base)
 	return (len ? len : 1);
 }
 
-int		ft_unsignedlen(size_t n)
+int		ft_unsignedlen(unsigned int n)
 {
 	size_t size;
 

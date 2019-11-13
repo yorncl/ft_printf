@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:42 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/11 18:16:36 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:37:15 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef struct		format
 }					t_format;
 
 # define INDICATORS	"0-"
-# define INTEGERS	"iuxXod"
+# define INTEGERS	"iuxXd"
+# define CONVERTERS	"cspdiuxX%"
 /*
 *   Flags to check
 */

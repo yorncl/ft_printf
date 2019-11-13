@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/12 17:29:09 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:50:41 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 {
 	int len;
+	int tmp;
 
 	len = 0;
 	/*
@@ -40,12 +41,29 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 	/*
 	**	Parse width
 	*/
-	f->width = ft_atoi(s);
-	while (ft_isdigit(*s))
+	if (*s == '*')
 	{
+		tmp = va_arg(*ap, int);
+		if (tmp < 0)
+		{
+			f->width = -tmp;
+			f->flags += FLAG_MINUS;
+		}
+		else
+			f->width = tmp;
 		s++;
 		len++;
-	}	
+	}
+	else
+	{
+		f->width = ft_atoi(s);
+		while (ft_isdigit(*s))
+		{
+			s++;
+			len++;
+		}	
+	}
+	
 	// printf("Minimal width %d\n", f->width);
 	/*
 	**	Parse precision
@@ -85,7 +103,7 @@ int	ft_parseflag(t_format *f, va_list *ap, const char *s)
 		|| (incharset(INTEGERS, f->type) 
 	&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
 		f->flags -= FLAG_ZERO;
-	return (len);
+	return (incharset(CONVERTERS, f->type) ? len : 0);
 }
 
 /*
@@ -105,14 +123,14 @@ int	ft_printflag(t_format *f, va_list *ap)
 	if (f->type == 's')
 		return (ft_printstr(f, va_arg(*ap, char*)));
 	if (f->type == 'x')
-		return (ft_printbase(f, "0123456789abcdef", va_arg(*ap, size_t)));
+		return (ft_printbase(f, "0123456789abcdef", va_arg(*ap, unsigned int)));
 	if (f->type == 'X')
-		return (ft_printbase(f, "0123456789ABCDEF", va_arg(*ap, size_t)));
+		return (ft_printbase(f, "0123456789ABCDEF", va_arg(*ap, unsigned int)));
 	if (f->type == 'p')
-		return (ft_printaddr(f, va_arg(*ap, size_t)));
+		return (ft_printaddr(f, va_arg(*ap, unsigned int)));
 	if (f->type == '%')
 		return (ft_printpercent(f));
 	if (f->type == 'u')
-		return (ft_printunsigned(f, va_arg(*ap, size_t)));
+		return (ft_printunsigned(f, va_arg(*ap, unsigned int)));
 	return (0);
 }

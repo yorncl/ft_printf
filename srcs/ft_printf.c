@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:57:35 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/11 17:15:46 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:57:14 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_printf(const char *s, ...)
 	size_t		i;
 	va_list		ap;
 	t_format	format;
+	int			parsed;
 
 	if (!s)
 		return (0);
@@ -36,8 +37,11 @@ int	ft_printf(const char *s, ...)
 		if (s[i] == '%')
 		{
 			ft_bzero(&format, sizeof(format));
-			i += 1 + ft_parseflag(&format, &ap, s + i + 1);
-			printed += ft_printflag(&format, &ap);
+			parsed = ft_parseflag(&format, &ap, s + i + 1);
+			i += 1 + parsed;
+			if (!parsed)
+				ft_putchar_fd('%', 1);
+			printed += parsed ? ft_printflag(&format, &ap) : 1;
 		}
 		else
 		{
