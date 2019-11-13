@@ -36,5 +36,3 @@ test : bonus
 	$(CC)  -fsanitize=address -g3 test/main.c -I headers -I libft $(NAME)  -o ./test/run_tests
 testperso : bonus
 	$(CC) $(FLAGS) -fsanitize=address -g3 test/perso.c -I headers -I libft $(NAME)  -o ./test/run_tests
-	#@echo ===============LAUNCHING TESTS=================
-	#./test/run_tests
