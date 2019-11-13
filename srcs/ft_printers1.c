@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 18:35:03 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:56:19 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ size_t	ft_printint(t_format *f, int i)
 		printed += ft_print_zeroes(f->precision + isneg - datalen);
 	if (!(i == 0 && f->flags & FLAG_DOT && f->precision == 0))
 	{
-		if (i == -2147483648)
-			write(1, "2147483648", 11);
-		else
-			ft_putnbr_fd(isneg ? -i : i, 1);
+		ft_printint_sub(i, isneg);
 		printed += datalen;
 	}
 	if (f->flags & FLAG_MINUS)
@@ -85,11 +82,13 @@ size_t	ft_printaddr(t_format *f, size_t n)
 
 	base = "0123456789abcdef";
 	printed = 0;
-	datalen = 2 + ft_sizetleninbase(n, base);
+	datalen = 2 + (n == 0 && f->flags & FLAG_DOT
+		? 0 : ft_sizetleninbase(n, base));
 	if (!(f->flags & FLAG_ZERO) && !(f->flags & FLAG_MINUS))
 		printed += ft_print_spaces(f->width - datalen);
 	ft_putstr_fd("0x", 1);
-	ft_putsizetbase_fd(n, base, ft_strlen(base), 1);
+	if (!(n == 0 && f->flags & FLAG_DOT))
+		ft_putsizetbase_fd(n, base, ft_strlen(base), 1);
 	printed += datalen;
 	if (f->flags & FLAG_MINUS)
 		printed += ft_print_spaces(f->width - datalen);

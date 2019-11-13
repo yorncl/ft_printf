@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:23:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 18:35:31 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 21:02:57 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ size_t	ft_printunsigned(t_format *f, unsigned int i)
 		printed += ft_print_spaces(
 			f->width - ft_max(datalen, f->precision));
 	return (printed);
+}
+
+void	ft_printint_sub(int i, int isneg)
+{
+	if (i == -2147483648)
+		write(1, "2147483648", 11);
+	else
+		ft_putnbr_fd(isneg ? -i : i, 1);
 }

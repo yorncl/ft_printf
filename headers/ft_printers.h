@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:59:27 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 18:59:37 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:19:05 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ size_t	ft_printbase(t_format *f, char *base,
 size_t	ft_printaddr(t_format *f, size_t n);
 size_t	ft_printpercent(t_format *f);
 size_t	ft_printunsigned(t_format *f, unsigned int i);
+void	ft_printint_sub(int i, int isneg);
 #endif

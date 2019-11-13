@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 18:51:58 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 20:19:09 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_parseprecision(const char *s, int *len, t_format *f, va_list *ap)
 		f->flags += FLAG_DOT;
 		if (*(++s) == '*')
 		{
+			f->flags += FLAG_STAR;
 			f->precision = va_arg(*ap, int);
 			if (f->precision < 0)
 				f->flags -= FLAG_DOT;
@@ -95,6 +96,10 @@ int		ft_parseflag(t_format *f, va_list *ap, const char *s)
 		|| (incharset(INTEGERS, f->type)
 	&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
 		f->flags -= FLAG_ZERO;
+	if ((f->flags & FLAG_ZERO && f->type == 'p')
+		|| (f->flags & FLAG_DOT && f->type == 'p'
+		&& (ft_isdigit(*(s - 1)) || f->flags & FLAG_STAR)))
+		f->type = 'o';
 	return (incharset(CONVERTERS, f->type) ? len : 0);
 }
 

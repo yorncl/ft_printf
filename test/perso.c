@@ -28,6 +28,13 @@ int	main (void)
 // 	printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
 
 // ft_printf("***************%*s%*d**************%*u*************\n", 10, "coucou", 10, 10, -50, 20);
-	ft_printf("|%p|\n", &i);
-	printf("|%p|\n", &i);
+	// char *p1 = 0; 
+	// char *p2 = 0; 
+	// char *p3 = 0; 
+	// char *p4 = 0; 
+	// ft_printf("|ok %p , %p , %p , %-5.p|\n", p1, p2, p3,  p4);
+	// printf("|ok %p , %p , %p , %-5.p|\n", p1, p2, p3,  p4);
+	char *str = "|%.*s|\n";
+	ft_printf(str,2,NULL);
+	printf(str,2, NULL);
 }
