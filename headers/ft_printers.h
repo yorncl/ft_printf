@@ -33,7 +33,7 @@ size_t	ft_printchar(t_format *f, char c);
 size_t	ft_printint(t_format *f, int i);
 size_t	ft_printstr(t_format *f, char *str);
 size_t	ft_printbase(t_format *f, char *base, unsigned int n);
-size_t	ft_printaddr(t_format *f, unsigned int n);
+size_t	ft_printaddr(t_format *f, size_t n);
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 15:25:52 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:14:41 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ size_t	ft_printstr(t_format *f, char *str)
 	return (printed);
 }
 
-size_t	ft_printaddr(t_format *f, unsigned int n)
+size_t	ft_printaddr(t_format *f, size_t n)
 {
 	size_t	printed;
 	size_t	datalen;
@@ -97,13 +97,13 @@ size_t	ft_printaddr(t_format *f, unsigned int n)
 
 	base = "0123456789abcdef";
 	printed = 0;
-	datalen = 2 + ft_leninbase(n, base);
+	datalen = 2 + ft_sizetleninbase(n, base);
 	//Print spaces
 	if (!(f->flags & FLAG_ZERO) && !(f->flags & FLAG_MINUS))
 		printed += ft_print_spaces(f->width - datalen);
 	//Print address
 	ft_putstr_fd("0x", 1);
-	ft_putunsignedbase_fd(n, base, 16, 1);
+	ft_putsizetbase_fd(n, base, ft_strlen(base), 1);
 	printed += datalen;
 	//Print spaces
 	if (f->flags & FLAG_MINUS)

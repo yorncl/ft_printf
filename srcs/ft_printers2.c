@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:23:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/12 17:14:31 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:43:10 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t	ft_printpercent(t_format *f)
 	return (printed);
 }
 
-size_t	ft_printunsigned(t_format *f, size_t i)
+size_t	ft_printunsigned(t_format *f, unsigned int i)
 {
 	size_t			printed;
 	int				datalen;

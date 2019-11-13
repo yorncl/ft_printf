@@ -28,7 +28,7 @@ int	main (void)
 // 	printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
 
 // ft_printf("***************%*s%*d**************%*u*************\n", 10, "coucou", 10, 10, -50, 20);
-	ft_printf("|neg10 %*.*s|\n", -15, 15, "coucou");
-	printf("|neg10 %*.*s|\n", -15, 15, "coucou");
+	ft_printf("|%p|\n", 0x7ffee42a99a0);
+	printf("|%p|\n", 0x7ffee42a99a0);
 
 }
