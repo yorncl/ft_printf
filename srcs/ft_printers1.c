@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/14 16:08:57 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/14 20:15:33 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ size_t	ft_printstr(t_format *f, char *str)
 		str = "(null)";
 	printed = 0;
 	if (f->flags & FLAG_DOT)
-		datalen = ft_min(f->precision, ft_strlen(str));
+		datalen = f->precision < 0 ? ft_strlen(str)
+			: ft_min(f->precision, ft_strlen(str));
 	else
 		datalen = ft_strlen(str);
 	if (!(f->flags & FLAG_MINUS))

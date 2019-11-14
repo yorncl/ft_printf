@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/14 16:05:58 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/14 20:17:16 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		ft_parseflag(t_format *f, va_list *ap, const char *s)
 	len++;
 	if ((f->flags & FLAG_ZERO && f->flags & FLAG_MINUS)
 		|| (incharset(INTEGERS, f->type)
-		&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
+		&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT && f->precision >= 0))
 		f->flags ^= FLAG_ZERO;
 	if ((f->flags & FLAG_ZERO && f->type == 'p')
 		|| (f->flags & FLAG_DOT && f->type == 'p'
