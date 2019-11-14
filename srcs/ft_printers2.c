@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:23:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/14 15:38:36 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/14 22:21:38 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ size_t	ft_printint_sub(t_format *f, int i, int isneg, int datalen)
 			ft_putnbr_fd(isneg ? -i : i, 1);
 		printed = datalen;
 	}
-	else if (i == 0 & f->typedwidth < 0)
+	else if (!(i == 0 && f->precision == 0 && f->width == 0))
 	{
 		ft_putchar_fd(' ', 1);
 		printed = 1;
