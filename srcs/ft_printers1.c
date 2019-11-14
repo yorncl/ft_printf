@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:05 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 21:41:42 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:43:33 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,8 @@ size_t	ft_printint(t_format *f, int i)
 		printed += ft_print_zeroes(f->width - datalen);
 	if (f->flags & FLAG_DOT && f->precision + isneg > datalen)
 		printed += ft_print_zeroes(f->precision + isneg - datalen);
-	if (!(i == 0 && f->flags & FLAG_DOT && f->precision == 0))
-	{
-		ft_printint_sub(i, isneg);
-		printed += datalen;
-	}
+
+	printed += ft_printint_sub(f, i, isneg, datalen);
 	if (f->flags & FLAG_MINUS)
 		printed += ft_print_spaces(
 			f->width - ft_max(datalen, f->precision + isneg));

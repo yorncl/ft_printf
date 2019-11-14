@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:09:49 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 20:19:09 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:00:02 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 char	*ft_parsewidth(const char *s, int *len, t_format *f, va_list *ap)
 {
-	int tmp;
-
 	if (*s == '*')
 	{
-		tmp = va_arg(*ap, int);
-		if (tmp < 0)
+		f->typedwidth = va_arg(*ap, int);
+		if (f->typedwidth < 0)
 		{
-			f->width = -tmp;
-			f->flags += FLAG_MINUS;
+			f->width = -f->typedwidth;
+			f->flags |= FLAG_MINUS;
 		}
 		else
-			f->width = tmp;
+			f->width = f->typedwidth;
 		s++;
 		*len += 1;
 	}
@@ -45,13 +43,13 @@ char	*ft_parseprecision(const char *s, int *len, t_format *f, va_list *ap)
 {
 	if (*s == '.')
 	{
-		f->flags += FLAG_DOT;
+		f->flags |= FLAG_DOT;
 		if (*(++s) == '*')
 		{
-			f->flags += FLAG_STAR;
+			f->flags |= FLAG_STAR;
 			f->precision = va_arg(*ap, int);
-			if (f->precision < 0)
-				f->flags -= FLAG_DOT;
+			// if (f->precision < 0)
+			// 	f->flags -= FLAG_DOT;
 			s++;
 			*len += 1;
 		}
@@ -73,7 +71,7 @@ char	*ft_parseprecision(const char *s, int *len, t_format *f, va_list *ap)
 ** @param	str  pointer to flag in string
 ** @return	int
 */
-
+#include <stdio.h>
 int		ft_parseflag(t_format *f, va_list *ap, const char *s)
 {
 	int len;
@@ -89,16 +87,15 @@ int		ft_parseflag(t_format *f, va_list *ap, const char *s)
 		s++;
 	}
 	s = ft_parsewidth(s, &len, f, ap);
+	// printf("\033[1;36m %d \033[0m", f->flags & FLAG_ZERO);
 	s = ft_parseprecision(s, &len, f, ap);
 	f->type = *s;
 	len++;
-	if ((f->flags & FLAG_ZERO && f->flags & FLAG_MINUS)
-		|| (incharset(INTEGERS, f->type)
-	&& f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
-		f->flags -= FLAG_ZERO;
-	if ((f->flags & FLAG_ZERO && f->type == 'p')
-		|| (f->flags & FLAG_DOT && f->type == 'p'
-		&& (ft_isdigit(*(s - 1)) || f->flags & FLAG_STAR)))
+	// if (f->flags & FLAG_MINUS && f->typedwidth < 0)
+	// 	f->flags -= FLAG_MINUS;
+	if ((f->flags & FLAG_ZERO && f->flags & FLAG_MINUS)	|| (incharset(INTEGERS, f->type) && f->flags & FLAG_ZERO && f->flags & FLAG_DOT))
+		f->flags ^= FLAG_ZERO;
+	if ((f->flags & FLAG_ZERO && f->type == 'p') || (f->flags & FLAG_DOT && f->type == 'p' && (ft_isdigit(*(s - 1)) || f->flags & FLAG_STAR)))
 		f->type = 'o';
 	return (incharset(CONVERTERS, f->type) ? len : 0);
 }

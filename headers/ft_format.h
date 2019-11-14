@@ -6,7 +6,7 @@
 /*   By: mclaudel <mclaudel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 14:49:42 by mclaudel          #+#    #+#             */
-/*   Updated: 2019/11/13 20:09:27 by mclaudel         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:10:51 by mclaudel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct		s_format
 {
 	unsigned int	flags;
 	unsigned int	width;
+	int				typedwidth;
 	int				precision;
 	unsigned int	size;
 	char			type;
