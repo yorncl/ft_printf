@@ -53,12 +53,11 @@ size_t	ft_printstr(t_format *f, char *str)
 	size_t	printed;
 	int		datalen;
 
-	if (!str || (int)str < 0)
+	if (!str || (long int)str < 0)
 		str = "(null)";
 	printed = 0;
 	if (f->flags & FLAG_DOT)
-		datalen = f->precision < 0 ? ft_strlen(str)
-			: ft_min(f->precision, ft_strlen(str));
+		datalen = (f->precision < 0 ? (int)ft_strlen(str) : ft_min(f->precision, ft_strlen(str)));
 	else
 		datalen = ft_strlen(str);
 	if (!(f->flags & FLAG_MINUS))

@@ -64,7 +64,7 @@ size_t	ft_printint_sub(t_format *f, int i, int isneg, int datalen)
 	if (!(i == 0 && f->flags & FLAG_DOT && f->precision == 0))
 	{
 		if (i == -2147483648)
-			write(1, "2147483648", 11);
+			write(1, "2147483648", 10);
 		else
 			ft_putnbr_fd(isneg ? -i : i, 1);
 		printed = datalen;
