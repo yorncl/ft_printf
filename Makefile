@@ -34,5 +34,12 @@ bonus : all
 
 test : bonus
 	$(CC)  -fsanitize=address -g3 test/main.c -I headers -I libft $(NAME)  -o ./test/run_tests
+testlol : bonus
+	$(CC)  -fsanitize=address -g3 test/perso.c -I headers -I libft $(NAME)  -o ./test/run_tests
 testperso : bonus
-	$(CC) $(CFLAGS) -fsanitize=address -g3 test/perso.c -I headers -I libft $(NAME)  -o ./test/run_tests
+	$(CC)  -g3 test/testft_printf.c -D PRINT=ft_printf -I headers -I libft $(NAME)  -o ./test/ft_printf_output.out
+	$(CC)  -g3 test/testft_printf.c -D PRINT=printf -I headers -I libft $(NAME)  -o ./test/printf_output.out
+	sh test/launch.sh
+testdetail : bonus
+	$(CC)  -fsanitize=address -g3 test/perso.c -I headers -I libft $(NAME)  -o ./test/run_tests
+
